@@ -9,19 +9,50 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
+            //CarTest();
             //BrandTest();
+            //ColorTest();
 
             Console.ReadLine();
+        }
+
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            var result = colorManager.GetAll();
+
+            if (result.Success == true)
+            {
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            } 
         }
 
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+
+            var result = brandManager.GetAll();
+
+            if (result.Success==true)
             {
-                Console.WriteLine(brand.BrandName);
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.BrandName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
 
         private static void CarTest()
@@ -34,7 +65,7 @@ namespace ConsoleUI
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.ModelYear + " - " + car.ColorName + " - " + car.BrandName);
+                    Console.WriteLine(car.BrandName + '/' + car.ColorName + '/' + car.ModelYear + '/' + car.DailyPrice);
                 }
             }
             else
