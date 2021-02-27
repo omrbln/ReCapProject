@@ -1,6 +1,8 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -12,6 +14,19 @@ namespace ConsoleUI
             //CarTest();
             //BrandTest();
             //ColorTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+                {                    
+                    CustomerId = 1,
+                    RentDate = new DateTime(2021, 02, 27),
+                    ReturnDate = new DateTime(2021, 03, 13)
+
+                });
+            if (result.Success)
+            {
+                Console.WriteLine(result.Message);
+            }
 
             Console.ReadLine();
         }
